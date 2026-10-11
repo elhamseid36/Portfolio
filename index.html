@@ -1,0 +1,4844 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elham Seid Abdu | Portfolio</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+
+
+    <style>
+
+        :root {
+
+            --bg-dark: #080710;
+
+            --text-light: #f3f4f6;
+
+            --text-muted: #9ca3af;
+
+            --gemini-blue: rgba(26, 115, 232, 0.4);
+
+            --gemini-purple: rgba(160, 32, 240, 0.4);
+
+            --gemini-pink: rgba(255, 105, 180, 0.3);
+
+            --glass-bg: rgba(255, 255, 255, 0.03);
+
+            --glass-border: rgba(255, 255, 255, 0.08);
+
+            --glass-hover: rgba(255, 255, 255, 0.06);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        body {
+
+            background-color: var(--bg-dark);
+
+            color: var(--text-light);
+
+            overflow-x: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        /* Interactive Canvas Background */
+
+        #bg-canvas {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            z-index: -1;
+
+            pointer-events: none;
+
+        }
+
+
+
+        /* Custom Scrollbar */
+
+        ::-webkit-scrollbar {
+
+            width: 8px;
+
+        }
+
+        ::-webkit-scrollbar-track {
+
+            background: var(--bg-dark);
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border-radius: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: rgba(255, 255, 255, 0.2);
+
+        }
+
+
+
+        /* Navigation */
+
+        nav {
+
+            position: fixed;
+
+            top: 0;
+
+            width: 100%;
+
+            padding: 24px 8%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            z-index: 100;
+
+            background: linear-gradient(to bottom, rgba(8,7,16,0.9), transparent);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--glass-border);
+
+        }
+
+
+
+        .logo {
+
+            font-weight: 700;
+
+            font-size: 1.25rem;
+
+            letter-spacing: -0.5px;
+
+            background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 32px;
+
+            list-style: none;
+
+        }
+
+
+
+        .nav-links a {
+
+            color: var(--text-muted);
+
+            text-decoration: none;
+
+            font-size: 0.95rem;
+
+            font-weight: 500;
+
+            transition: all 0.3s ease;
+
+            position: relative;
+
+        }
+
+
+
+        .nav-links a:hover, .nav-links a.active {
+
+            color: var(--text-light);
+
+        }
+
+
+
+        .nav-links a::after {
+
+            content: '';
+
+            position: absolute;
+
+            bottom: -6px;
+
+            left: 0;
+
+            width: 0;
+
+            height: 2px;
+
+            background: linear-gradient(90deg, #4285f4, #9b51e0);
+
+            transition: width 0.3s ease;
+
+        }
+
+
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+
+            width: 100%;
+
+        }
+
+
+
+        /* Hamburger Button */
+
+        .hamburger {
+
+            display: none;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            width: 28px;
+
+            height: 20px;
+
+            background: transparent;
+
+            border: none;
+
+            cursor: pointer;
+
+            z-index: 101;
+
+        }
+
+
+
+        .hamburger span {
+
+            width: 100%;
+
+            height: 2px;
+
+            background: var(--text-light);
+
+            border-radius: 2px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        /* Shared Section Container styling */
+
+        section {
+
+            padding: 120px 8% 80px 8%;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            position: relative;
+
+        }
+
+
+
+        /* Hero Section */
+
+        .hero-container {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 64px;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            width: 100%;
+
+        }
+
+
+
+        .hero-content {
+
+            flex: 1;
+
+        }
+
+
+
+        .profile-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 24px;
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        .profile-img {
+
+            width: 90px;
+
+            height: 90px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 2px solid rgba(255,255,255,0.2);
+
+            box-shadow: 0 0 30px rgba(66, 133, 244, 0.2);
+
+            animation: pulse-border 4s infinite ease-in-out;
+
+        }
+
+
+
+        @keyframes pulse-border {
+
+            0%, 100% { border-color: rgba(66, 133, 244, 0.4); box-shadow: 0 0 20px rgba(66, 133, 244, 0.2); }
+
+            50% { border-color: rgba(155, 81, 224, 0.4); box-shadow: 0 0 30px rgba(155, 81, 224, 0.4); }
+
+        }
+
+
+
+        .hero-tag {
+
+            font-size: 1.1rem;
+
+            font-weight: 500;
+
+            color: #4285f4;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+        }
+
+
+
+        .hero-content h1 {
+
+            font-size: 4rem;
+
+            font-weight: 700;
+
+            line-height: 1.1;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 16px;
+
+        }
+
+
+
+        .gradient-text {
+
+            background: linear-gradient(135deg, #4285f4 0%, #9b51e0 50%, #e84393 100%);
+
+            background-size: 200% auto;
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            animation: shine 6s linear infinite;
+
+        }
+
+
+
+        @keyframes shine {
+
+            to { background-position: 200% center; }
+
+        }
+
+
+
+        .hero-content p {
+
+            font-size: 1.25rem;
+
+            color: var(--text-muted);
+
+            max-width: 540px;
+
+            margin-bottom: 40px;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .cta-group {
+
+            display: flex;
+
+            gap: 16px;
+
+        }
+
+
+
+        .btn {
+
+            padding: 14px 28px;
+
+            border-radius: 100px;
+
+            font-size: 0.95rem;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+            cursor: pointer;
+
+        }
+
+
+
+        .btn-primary {
+
+            background: var(--text-light);
+
+            color: var(--bg-dark);
+
+        }
+
+
+
+        .btn-primary:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 10px 25px rgba(255,255,255,0.15);
+
+        }
+
+
+
+        .btn-secondary {
+
+            background: var(--glass-bg);
+
+            color: var(--text-light);
+
+            border: 1px solid var(--glass-border);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+
+        .btn-secondary:hover {
+
+            background: var(--glass-hover);
+
+            border-color: rgba(255,255,255,0.2);
+
+            transform: translateY(-3px);
+
+        }
+
+
+
+        /* Sections Structural Setup */
+
+        .section-title {
+
+            font-size: 2.5rem;
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+
+        .section-subtitle {
+
+            color: var(--text-muted);
+
+            font-size: 1.1rem;
+
+            margin-bottom: 64px;
+
+            max-width: 600px;
+
+        }
+
+
+
+        /* Glass Cards Grid (Projects & Experience) */
+
+        .grid-layout {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 32px;
+
+            max-width: 1200px;
+
+            width: 100%;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .glass-card {
+
+            background: var(--glass-bg);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 24px;
+
+            padding: 32px;
+
+            backdrop-filter: blur(20px);
+
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+            text-decoration: none;
+
+            color: inherit;
+
+            display: block;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .glass-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: linear-gradient(135deg, rgba(66,133,244,0.05), rgba(155,81,224,0.05));
+
+            opacity: 0;
+
+            transition: opacity 0.4s ease;
+
+        }
+
+
+
+        .glass-card:hover {
+
+            transform: translateY(-8px);
+
+            border-color: rgba(255, 255, 255, 0.18);
+
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        .glass-card:hover::before {
+
+            opacity: 1;
+
+        }
+
+
+
+        .card-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            background: rgba(255,255,255,0.05);
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 1.25rem;
+
+            color: #4285f4;
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        .glass-card h3 {
+
+            font-size: 1.4rem;
+
+            font-weight: 600;
+
+            margin-bottom: 12px;
+
+        }
+
+
+
+        .glass-card p {
+
+            color: var(--text-muted);
+
+            line-height: 1.6;
+
+            font-size: 0.95rem;
+
+        }
+
+
+
+        .card-tags {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 24px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .tag {
+
+            background: rgba(255,255,255,0.04);
+
+            border: 1px solid var(--glass-border);
+
+            padding: 4px 12px;
+
+            border-radius: 100px;
+
+            font-size: 0.8rem;
+
+            color: var(--text-light);
+
+        }
+
+
+
+        /* About & Skills Section Details */
+
+        .about-content {
+
+            display: flex;
+
+            gap: 64px;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            width: 100%;
+
+        }
+
+
+
+        .about-text {
+
+            flex: 1;
+
+            font-size: 1.1rem;
+
+            line-height: 1.7;
+
+            color: var(--text-muted);
+
+        }
+
+
+
+        .skills-pane {
+
+            flex: 1;
+
+        }
+
+
+
+        .skills-category {
+
+            margin-bottom: 32px;
+
+        }
+
+
+
+        .skills-category h4 {
+
+            font-size: 0.9rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            color: var(--text-light);
+
+            margin-bottom: 16px;
+
+        }
+
+
+
+        .skills-tags {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        /* Contact Items */
+
+        .contact-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 24px;
+
+            max-width: 1200px;
+
+            width: 100%;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .contact-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            background: var(--glass-bg);
+
+            border: 1px solid var(--glass-border);
+
+            padding: 24px;
+
+            border-radius: 20px;
+
+            text-decoration: none;
+
+            color: var(--text-light);
+
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+            backdrop-filter: blur(20px);
+
+        }
+
+
+
+        .contact-btn:hover {
+
+            transform: scale(1.02);
+
+            background: var(--glass-hover);
+
+            border-color: rgba(255,255,255,0.2);
+
+        }
+
+
+
+        .contact-btn i {
+
+            font-size: 1.5rem;
+
+            color: #4285f4;
+
+        }
+
+
+
+        .contact-info h4 {
+
+            font-size: 1rem;
+
+            font-weight: 600;
+
+        }
+
+
+
+        .contact-info p {
+
+            font-size: 0.85rem;
+
+            color: var(--text-muted);
+
+            margin-top: 2px;
+
+        }
+
+
+
+        /* Scroll Animation States */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform: translateY(40px);
+
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+        }
+
+
+
+        .reveal.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+
+        /* Responsive UI & Mobile Hamburger Adaptation */
+
+        @media (max-width: 968px) {
+
+            .hamburger {
+
+                display: flex;
+
+            }
+
+            .nav-links {
+
+                position: fixed;
+
+                top: 0;
+
+                right: -100%;
+
+                width: 75%;
+
+                max-width: 320px;
+
+                height: 100vh;
+
+                background: rgba(8, 7, 16, 0.98);
+
+                backdrop-filter: blur(20px);
+
+                flex-direction: column;
+
+                justify-content: center;
+
+                align-items: center;
+
+                gap: 28px;
+
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+                border-left: 1px solid var(--glass-border);
+
+                z-index: 100;
+
+            }
+
+            .nav-links.nav-active {
+
+                right: 0;
+
+            }
+
+            .hero-container, .about-content {
+
+                flex-direction: column;
+
+                text-align: center;
+
+                gap: 40px;
+
+            }
+
+            .profile-area {
+
+                flex-direction: column;
+
+                gap: 16px;
+
+            }
+
+            .hero-content h1 { font-size: 2.6rem; }
+
+            .hero-content p { margin: 0 auto 32px auto; font-size: 1.05rem; }
+
+            .cta-group { justify-content: center; flex-wrap: wrap; }
+
+            nav { padding: 20px 5%; }
+
+            section { padding: 100px 5% 60px 5%; min-height: auto; }
+
+            .section-title { font-size: 2rem; }
+
+            .profile-coin { width: 100% !important; max-width: 320px; height: auto !important; min-height: 100px; }
+
+            
+
+            /* Mobile Voice Link Button positioning under logo */
+
+            #voice-assistant-trigger {
+
+                top: 62px !important;
+
+                left: 5% !important;
+
+                right: auto !important;
+
+                padding: 5px 12px !important;
+
+                font-size: 0.65rem !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <!-- Matrix Code & Numerics Fluid Canvas Backdrop -->
+
+    <canvas id="bg-canvas"></canvas>
+
+
+
+    <!-- Navigation Header -->
+
+    <nav>
+
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+
+            <div class="logo">ES.</div>
+
+            <!-- AI Voice Link positioned right under logo ES -->
+
+            <button id="voice-assistant-trigger" onclick="toggleVoiceModal()" aria-label="Open AI Voice Assistant" style="background: rgba(8, 7, 16, 0.85); border: 1px solid rgba(255, 56, 56, 0.4); color: #f3f4f6; padding: 5px 12px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; cursor: pointer; backdrop-filter: blur(12px); box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s ease; width: fit-content;">
+
+                <span style="width: 6px; height: 6px; background: #ff3838; border-radius: 50%; box-shadow: 0 0 8px #ff3838; animation: pulseDot 1.5s infinite;"></span>
+
+                <i class="fa-solid fa-microphone-lines" style="color: #ff3838; font-size: 0.65rem;"></i>
+
+                <span>AI Voice Link</span>
+
+            </button>
+
+        </div>
+
+
+
+        <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation menu">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </button>
+
+        <ul class="nav-links" id="nav-menu">
+
+            <li><a href="#home" class="active">Home</a></li>
+
+            <li><a href="#projects">Projects</a></li>
+
+            <li><a href="#cinematic-showcase">Ecosystem</a></li>
+
+            <li><a href="#evolution">Evolution</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#ai-playground">Playground</a></li>
+
+            <li><a href="#neural-galaxy">Constellation</a></li>
+
+            <li><a href="#quantum-core">Quantum Core</a></li>
+
+            <li><a href="#holodeck-diagnostics">Holodeck</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+
+    
+    <!-- Home/Hero Section -->
+
+ <section id="home">
+
+ <div class="hero-container">
+
+ <div class="hero-content">
+
+<div class="profile-area" style="perspective: 1000px; display: inline-block; margin-bottom: 24px;">
+
+<!-- Interactive 3D Card / Coin Wrapper -->
+
+ <div class="profile-area" style="perspective: 1000px; display: inline-block; margin-bottom: 24px;">
+
+ <style>
+
+ @keyframes autoCoinFlip {
+
+ 0%, 40% { transform: rotateY(0deg); }
+
+ 50%, 90% { transform: rotateY(180deg); }
+
+100% { transform: rotateY(0deg); }
+
+ }
+
+ .auto-flip-coin {
+
+ animation: autoCoinFlip 8s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+
+ }
+
+ .profile-area:hover .auto-flip-coin {
+
+ animation-play-state: paused;
+
+ transform: rotateY(180deg);
+
+ }
+ 
+ .hero-container {
+
+ margin-top: 60px;
+
+ }
+ </style>
+
+
+
+ <!-- Interactive 3D Card / Coin Wrapper with Auto-Looping Animation -->
+
+ <div class="profile-coin auto-flip-coin" style="width: 460px; height: 110px; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
+
+ 
+
+ <!-- FRONT SIDE -->
+
+ <div class="coin-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; gap: 24px; transform: rotateY(0deg); z-index: 2;">
+
+ <img src="image/file_00000000ad8471fd8e075e2da7034749.jpg" alt="Elham Seid Abdu" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'">
+
+ <div>
+
+ <span class="hero-tag">Specialized AI & ML Engineer</span>
+
+ <h1 class="gradient-text">Elham Seid Abdu</h1>
+
+ </div>
+
+ </div>
+
+
+
+ <!-- BACK SIDE -->
+
+ <div class="coin-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; border-radius: 24px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); transform: rotateY(180deg); box-shadow: 0 10px 30px rgba(66, 133, 244, 0.15);">
+
+ <div style="text-align: center;">
+
+ <i class="fa-solid fa-code" style="font-size: 2.2rem; color: #4285f4; margin-bottom: 6px; display: block;"></i>
+
+ <h3 style="font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 2px;">Let's Build It.</h3>
+
+ <p style="font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase;">Transforming visions into reality</p>
+
+ </div>
+
+ </div>
+
+
+
+ </div>
+
+</div>
+
+</div>
+
+ <p>Bridging deterministic system architecture with probabilistic intelligence—transforming robust web infrastructure and high-performance applications into autonomous, AI-driven digital ecosystems.</p>
+
+ <div class="cta-group">
+
+ <a href="#projects" class="btn btn-primary">View Works</a>
+
+ <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+
+ </div>
+
+ </div>
+ 
+ </div>
+
+ </section>
+
+
+    <!-- Projects Portfolio Showcase Grid Section -->
+
+    <section id="projects" class="reveal">
+
+
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Selected AI Projects</h2>
+
+            <p class="section-subtitle">An exploration of LLM orchestration, intelligent agent architectures, and fine-tuned machine learning pipelines.</p>
+
+        </div>
+
+        <div class="grid-layout">
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
+
+                <h3>Enterprise RAG & Knowledge Engine</h3>
+
+                <p>Architected a secure retrieval-augmented generation pipeline with hybrid semantic search and automated hallucination evaluation guardrails.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">Python</span>
+
+                    <span class="tag">LangChain</span>
+
+                    <span class="tag">Pinecone</span>
+
+                </div>
+
+            </a>
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+
+                <h3>Autonomous Agent Workflow System</h3>
+
+                <p>Built multi-agent collaborative workflows capable of autonomous tool execution, complex task decomposition, and self-correction loops.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">OpenAI APIs</span>
+
+                    <span class="tag">FastAPI</span>
+
+                    <span class="tag">Docker</span>
+
+                </div>
+
+            </a>
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+
+                <h3>Fine-Tuned LLM Code Assistant</h3>
+
+                <p>Fine-tuned open-weight language models on domain-specific datasets utilizing parameter-efficient methods for low-latency inference.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">PyTorch</span>
+
+                    <span class="tag">Hugging Face</span>
+
+                    <span class="tag">vLLM</span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <br><br>
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Selected Full-Stack Projects</h2>
+
+            <p class="section-subtitle">An exploration of complex client builds, scalable systems, and fine-tuned application user experiences.</p>
+
+        </div>
+
+        <div class="grid-layout">
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+
+                <h3>SaaS Application Architecture</h3>
+
+                <p>Engineered responsive analytics dash system complete with real-time charts syncing and secure multi-tenant identity verification flows.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">React</span>
+
+                    <span class="tag">Node.js</span>
+
+                    <span class="tag">PostgreSQL</span>
+
+                </div>
+
+            </a>
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+
+                <h3>E-Commerce Framework</h3>
+
+                <p>A headless marketplace solution utilizing rapid cached programmatic page rendering pathways optimizing checkout velocity metrics safely.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">Next.js</span>
+
+                    <span class="tag">GraphQL</span>
+
+                    <span class="tag">Stripe APIs</span>
+
+                </div>
+
+            </a>
+
+            <a href="#project-link" class="glass-card">
+
+                <div class="card-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+
+                <h3>Interactive Creative Space</h3>
+
+                <p>Designed a fast custom canvas-based microservice rendering 3D graphic pipelines responsive directly to immediate browser events.</p>
+
+                <div class="card-tags">
+
+                    <span class="tag">TypeScript</span>
+
+                    <span class="tag">Three.js</span>
+
+                    <span class="tag">WebGL</span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Cinematic AI & Full-Stack Mastery, Revenue Impact, Testimonials & Partners Section -->
+
+    <section id="cinematic-showcase" class="reveal" style="padding: 100px 8%;">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Cinematic Telemetry & Ecosystem</h2>
+
+            <p class="section-subtitle">A live orbital display of 2-year AI skill mastery, high-impact financial project execution, 7 verified client testimonials with real portraits, and partner agency networks.</p>
+
+        </div>
+
+
+
+        <style>
+
+            .cinematic-grid {
+
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 40px;
+
+                max-width: 1200px;
+
+                margin: 0 auto;
+
+                width: 100%;
+
+            }
+
+            @media (max-width: 968px) {
+
+                .cinematic-grid { grid-template-columns: 1fr; }
+
+            }
+
+            .orbital-container {
+
+                position: relative;
+
+                width: 100%;
+
+                height: 440px;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                background: rgba(255, 255, 255, 0.01);
+
+                border: 1px solid var(--glass-border);
+
+                border-radius: 24px;
+
+                backdrop-filter: blur(20px);
+
+                overflow: hidden;
+
+            }
+
+            @media (max-width: 768px) {
+
+                .orbital-container { height: 360px; }
+
+            }
+
+            .orbit-ring {
+
+                position: absolute;
+
+                width: 340px;
+
+                height: 340px;
+
+                border: 1px dashed rgba(66, 133, 244, 0.25);
+
+                border-radius: 50%;
+
+                animation: rotateRing 35s linear infinite;
+
+            }
+
+            @media (max-width: 768px) {
+
+                .orbit-ring { width: 260px; height: 260px; }
+
+            }
+
+            @keyframes rotateRing {
+
+                from { transform: rotate(0deg); }
+
+                to { transform: rotate(360deg); }
+
+            }
+
+            .orbit-card {
+
+                position: absolute;
+
+                width: 230px;
+
+                background: rgba(8, 7, 16, 0.9);
+
+                border: 1px solid rgba(255, 255, 255, 0.12);
+
+                border-radius: 14px;
+
+                padding: 12px 14px;
+
+                backdrop-filter: blur(12px);
+
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+                transition: all 0.3s ease;
+
+                pointer-events: auto;
+
+                display: flex;
+
+                gap: 12px;
+
+                align-items: center;
+
+            }
+
+            @media (max-width: 768px) {
+
+                .orbit-card { width: 190px; padding: 8px 10px; gap: 8px; }
+
+            }
+
+            .orbit-card:hover {
+
+                border-color: #4285f4;
+
+                transform: scale(1.06);
+
+            }
+
+            .client-avatar {
+
+                width: 42px;
+
+                height: 42px;
+
+                border-radius: 50%;
+
+                object-fit: cover;
+
+                border: 1px solid rgba(255, 255, 255, 0.2);
+
+                flex-shrink: 0;
+
+            }
+
+            @media (max-width: 768px) {
+
+                .client-avatar { width: 32px; height: 32px; }
+
+            }
+
+            .orbit-center-core {
+
+                text-align: center;
+
+                z-index: 5;
+
+                background: radial-gradient(circle, rgba(66,133,244,0.15) 0%, transparent 70%);
+
+                padding: 40px;
+
+                border-radius: 50%;
+
+            }
+
+            .chart-bar-container {
+
+                display: flex;
+
+                flex-direction: column;
+
+                gap: 16px;
+
+            }
+
+            .chart-bar-row {
+
+                background: rgba(255,255,255,0.02);
+
+                border: 1px solid var(--glass-border);
+
+                padding: 16px 20px;
+
+                border-radius: 16px;
+
+                position: relative;
+
+                overflow: hidden;
+
+            }
+
+            .chart-bar-fill {
+
+                position: absolute;
+
+                top: 0;
+
+                left: 0;
+
+                height: 100%;
+
+                background: linear-gradient(90deg, rgba(66, 133, 244, 0.15), rgba(155, 81, 224, 0.2));
+
+                z-index: 1;
+
+                transition: width 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+            }
+
+            .chart-content {
+
+                position: relative;
+
+                z-index: 2;
+
+                display: flex;
+
+                justify-content: space-between;
+
+                align-items: center;
+
+            }
+
+            .partner-ticker-wrap {
+
+                width: 100%;
+
+                overflow: hidden;
+
+                white-space: nowrap;
+
+                background: rgba(255, 255, 255, 0.02);
+
+                border: 1px solid var(--glass-border);
+
+                border-radius: 16px;
+
+                padding: 20px 0;
+
+                margin-top: 30px;
+
+                position: relative;
+
+            }
+
+            .partner-ticker-track {
+
+                display: inline-block;
+
+                animation: marqueeScroll 25s linear infinite;
+
+            }
+
+            @keyframes marqueeScroll {
+
+                0% { transform: translateX(0); }
+
+                100% { transform: translateX(-50%); }
+
+            }
+
+            .partner-badge {
+
+                display: inline-flex;
+
+                align-items: center;
+
+                gap: 10px;
+
+                padding: 8px 24px;
+
+                margin: 0 16px;
+
+                background: rgba(255, 255, 255, 0.04);
+
+                border: 1px solid var(--glass-border);
+
+                border-radius: 100px;
+
+                font-family: 'JetBrains Mono', monospace;
+
+                font-size: 0.85rem;
+
+                color: var(--text-light);
+
+            }
+
+        </style>
+
+
+
+        <div class="cinematic-grid">
+
+            <div class="glass-card" style="padding: 32px; display: flex; flex-direction: column; justify-content: space-between;">
+
+                <div>
+
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+
+                        <i class="fa-solid fa-chart-line" style="font-size: 1.4rem; color: #4285f4;"></i>
+
+                        <h3 style="font-size: 1.3rem; font-weight: 600;">2-Years Scale & Revenue Impact</h3>
+
+                    </div>
+
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Tracking mastery growth across AI engineering, production architectures, and enterprise project valuations.</p>
+
+                </div>
+
+
+
+                <div class="chart-bar-container">
+
+                    <div class="chart-bar-row">
+
+                        <div class="chart-bar-fill" data-width="95%" style="width: 0%;"></div>
+
+                        <div class="chart-content">
+
+                            <div>
+
+                                <h4 style="font-size: 0.95rem; font-weight: 600;">AI Engineering & LLM RAG</h4>
+
+                                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">PyTorch, LangChain, Vector DBs</span>
+
+                            </div>
+
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #4285f4;">95% Mastery</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="chart-bar-row">
+
+                        <div class="chart-bar-fill" data-width="90%" style="width: 0%;"></div>
+
+                        <div class="chart-content">
+
+                            <div>
+
+                                <h4 style="font-size: 0.95rem; font-weight: 600;">High-Value Client Systems</h4>
+
+                                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">SaaS, E-Commerce, Custom Builds</span>
+
+                            </div>
+
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #9b51e0;">$120K+ Impact</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="chart-bar-row">
+
+                        <div class="chart-bar-fill" data-width="98%" style="width: 0%;"></div>
+
+                        <div class="chart-content">
+
+                            <div>
+
+                                <h4 style="font-size: 0.95rem; font-weight: 600;">Full-Stack Web & APIs</h4>
+
+                                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">Next.js, TypeScript, Supabase</span>
+
+                            </div>
+
+                            <span style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #e84393;">98% Velocity</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="orbital-container" id="orbital-stage">
+
+                <div class="orbit-ring"></div>
+
+                <div class="orbit-center-core">
+
+                    <i class="fa-solid fa-users-viewfinder" style="font-size: 2.2rem; color: #4285f4; margin-bottom: 8px;"></i>
+
+                    <h4 style="font-size: 1.1rem; font-weight: 700;">Client Testimonial Matrix</h4>
+
+                    <p style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">7 Verified Partners</p>
+
+                </div>
+
+                <div id="orbit-nodes-wrapper"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="partner-ticker-wrap">
+
+            <div class="partner-ticker-track" id="partner-track">
+
+                <span class="partner-badge"><i class="fa-solid fa-gem" style="color: #4285f4;"></i> Vellum Reserve Tech</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-star" style="color: #9b51e0;"></i> Erica North Star Group</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-compass" style="color: #e84393;"></i> O-Prime Landscapes</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-store" style="color: #27c93f;"></i> Merhaba Digital Hub</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-shield-halved" style="color: #4285f4;"></i> Elu Innovations AI</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-network-wired" style="color: #ffbd2e;"></i> Habesha Star Ventures</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-bolt" style="color: #ff5f56;"></i> Wellday Enterprise Systems</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-gem" style="color: #4285f4;"></i> Vellum Reserve Tech</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-star" style="color: #9b51e0;"></i> Erica North Star Group</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-compass" style="color: #e84393;"></i> O-Prime Landscapes</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-store" style="color: #27c93f;"></i> Merhaba Digital Hub</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-shield-halved" style="color: #4285f4;"></i> Elu Innovations AI</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-network-wired" style="color: #ffbd2e;"></i> Habesha Star Ventures</span>
+
+                <span class="partner-badge"><i class="fa-solid fa-bolt" style="color: #ff5f56;"></i> Wellday Enterprise Systems</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Testimonials Script -->
+
+    <script>
+
+        const testimonials = [
+
+            { name: "Marcus L.", role: "CTO, Vellum Reserve", quote: "Elham's AI architecture transformed our data pipeline speed instantly.", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "Sarah K.", role: "Director, North Star", quote: "Flawless full-stack execution and immaculate attention to detail.", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "David T.", role: "Founder, O-Prime", quote: "The autonomous agent workflows built for our portal are world-class.", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "Ahmed M.", role: "Operations, Merhaba", quote: "Delivered our e-commerce and backend infrastructure ahead of schedule.", img: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "Elena R.", role: "Product Lead, Elu", quote: "Unmatched expertise in LLM orchestration and vector database tuning.", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "Yonas B.", role: "Managing Partner", quote: "Incredible visual design combined with rock-solid engineering logic.", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80" },
+
+            { name: "Jessica W.", role: "Operations Director", quote: "The most reliable software engineer we've partnered with to date.", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" }
+
+        ];
+
+
+
+        const wrapper = document.getElementById('orbit-nodes-wrapper');
+
+        const totalCards = testimonials.length;
+
+        let orbitAngle = 0;
+
+
+
+        function renderOrbitCards() {
+
+            if (!wrapper) return;
+
+            wrapper.innerHTML = '';
+
+            const isMob = window.innerWidth <= 768;
+
+            const currentRadius = isMob ? 115 : 175;
+
+            const cardWidthOffset = isMob ? 95 : 115;
+
+            const cardHeightOffset = isMob ? 35 : 45;
+
+
+
+            testimonials.forEach((t, i) => {
+
+                const angle = orbitAngle + (i * (2 * Math.PI / totalCards));
+
+                const x = Math.cos(angle) * currentRadius;
+
+                const y = Math.sin(angle) * currentRadius;
+
+
+
+                const card = document.createElement('div');
+
+                card.className = 'orbit-card';
+
+                card.style.left = `calc(50% + ${x}px - ${cardWidthOffset}px)`;
+
+                card.style.top = `calc(50% + ${y}px - ${cardHeightOffset}px)`;
+
+                card.style.zIndex = Math.sin(angle) > 0 ? 10 : 2;
+
+                card.style.opacity = (Math.sin(angle) + 1.6) / 2.6;
+
+
+
+                card.innerHTML = `
+
+                    <img src="${t.img}" alt="${t.name}" class="client-avatar" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'">
+
+                    <div style="overflow: hidden;">
+
+                        <p style="font-size: ${isMob ? '0.6rem' : '0.68rem'}; font-style: italic; color: var(--text-light); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">"${t.quote}"</p>
+
+                        <div style="font-size: ${isMob ? '0.65rem' : '0.7rem'}; font-weight: 700; color: #4285f4;">${t.name}</div>
+
+                        <div style="font-size: ${isMob ? '0.52rem' : '0.58rem'}; color: var(--text-muted);">${t.role}</div>
+
+                    </div>
+
+                `;
+
+                wrapper.appendChild(card);
+
+            });
+
+        }
+
+
+
+        function animateOrbit() {
+
+            orbitAngle += 0.003;
+
+            renderOrbitCards();
+
+            requestAnimationFrame(animateOrbit);
+
+        }
+
+        animateOrbit();
+
+
+
+        const cinematicSection = document.getElementById('cinematic-showcase');
+
+        let chartAnimated = false;
+
+        const chartObserver = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting && !chartAnimated) {
+
+                    chartAnimated = true;
+
+                    document.querySelectorAll('.chart-bar-fill').forEach(bar => {
+
+                        bar.style.width = bar.getAttribute('data-width');
+
+                    });
+
+                }
+
+            });
+
+        }, { threshold: 0.3 });
+
+
+
+        if (cinematicSection) {
+
+            chartObserver.observe(cinematicSection);
+
+        }
+
+    </script>
+
+
+
+    <!-- Interactive AI Evolution & Skills Growth Timeline Section -->
+
+    <section id="evolution" class="reveal">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">2-Years AI Engineering Evolution</h2>
+
+            <p class="section-subtitle">A cinematic live telemetry display tracking skill mastery, architectural scale, and machine learning milestones over the past two years.</p>
+
+        </div>
+
+
+
+        <div class="glass-card" style="max-width: 1200px; margin: 0 auto; width: 100%; padding: 40px; position: relative; overflow: hidden;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--glass-border); padding-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+
+                <div style="display: flex; gap: 8px; align-items: center;">
+
+                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+
+                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+
+                    <span style="width: 12px; height: 12px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); margin-left: 12px;">elham@ai-cluster: ~/evolution-telemetry</span>
+
+                </div>
+
+                <div id="live-clock" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #4285f4; font-weight: 600;">STATUS: LIVE TRAINING</div>
+
+            </div>
+
+
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; position: relative; z-index: 2;">
+
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; transition: transform 0.3s ease;" class="metric-node">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+
+                        <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">LLM & RAG Systems</span>
+
+                        <i class="fa-solid fa-brain" style="color: #4285f4; font-size: 1.2rem;"></i>
+
+                    </div>
+
+                    <div style="font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;" class="counter-val" data-target="96">0%</div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Vector embedding optimization & multi-tenant semantic retrieval precision.</p>
+
+                    <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+
+                        <div class="progress-fill" data-width="96%" style="width: 0%; height: 100%; background: linear-gradient(90deg, #4285f4, #9b51e0); border-radius: 3px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; transition: transform 0.3s ease;" class="metric-node">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+
+                        <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Autonomous Agents</span>
+
+                        <i class="fa-solid fa-robot" style="color: #9b51e0; font-size: 1.2rem;"></i>
+
+                    </div>
+
+                    <div style="font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;" class="counter-val" data-target="92">0%</div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Multi-agent task decomposition, tool execution, and self-correction loops.</p>
+
+                    <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+
+                        <div class="progress-fill" data-width="92%" style="width: 0%; height: 100%; background: linear-gradient(90deg, #9b51e0, #e84393); border-radius: 3px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; transition: transform 0.3s ease;" class="metric-node">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+
+                        <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);">Full-Stack & Cloud</span>
+
+                        <i class="fa-solid fa-layer-group" style="color: #e84393; font-size: 1.2rem;"></i>
+
+                    </div>
+
+                    <div style="font-size: 2.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px;" class="counter-val" data-target="98">0%</div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Next.js, TypeScript, PostgreSQL, and low-latency inference APIs.</p>
+
+                    <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+
+                        <div class="progress-fill" data-width="98%" style="width: 0%; height: 100%; background: linear-gradient(90deg, #e84393, #4285f4); border-radius: 3px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div style="margin-top: 30px; background: rgba(0,0,0,0.3); border-radius: 12px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #a1c4fd; border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px;">
+
+                <i class="fa-solid fa-terminal" style="color: #27c93f;"></i>
+
+                <div id="telemetry-ticker" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+
+                    [SYSTEM_LOG]: Initializing 24-month model weights... LangChain vector stores optimized... Zero-shot agent accuracy verified.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Script to Trigger Cinematic Progress Animations on Scroll Intersection -->
+
+    <script>
+
+        const evolutionSection = document.getElementById('evolution');
+
+        let animated = false;
+
+
+
+        const evoObserver = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting && !animated) {
+
+                    animated = true;
+
+                    document.querySelectorAll('.progress-fill').forEach(bar => {
+
+                        bar.style.width = bar.getAttribute('data-width');
+
+                    });
+
+                    document.querySelectorAll('.counter-val').forEach(counter => {
+
+                        const target = +counter.getAttribute('data-target');
+
+                        let count = 0;
+
+                        const updateCount = () => {
+
+                            const increment = target / 40;
+
+                            if (count < target) {
+
+                                count += increment;
+
+                                counter.innerText = Math.ceil(count) + '%';
+
+                                setTimeout(updateCount, 30);
+
+                            } else {
+
+                                counter.innerText = target + '%';
+
+                            }
+
+                        };
+
+                        updateCount();
+
+                    });
+
+                }
+
+            });
+
+        }, { threshold: 0.3 });
+
+
+
+        if (evolutionSection) {
+
+            evoObserver.observe(evolutionSection);
+
+        }
+
+
+
+        const logs = [
+
+            "[SYSTEM_LOG]: Initializing 24-month model weights... LangChain vector stores optimized...",
+
+            "[TRAINING_EPOCH_24]: Fine-tuning open-weight LLMs with LoRA & vLLM acceleration...",
+
+            "[AGENT_DEPLOY]: Multi-agent orchestration workflows active on Docker & FastAPI clusters...",
+
+            "[METRIC_CHECK]: RAG hallucination guardrails maintaining 99.4% accuracy threshold."
+
+        ];
+
+        let logIndex = 0;
+
+        setInterval(() => {
+
+            logIndex = (logIndex + 1) % logs.length;
+
+            const ticker = document.getElementById('telemetry-ticker');
+
+            if (ticker) ticker.innerText = logs[logIndex];
+
+        }, 4500);
+
+    </script>
+
+
+
+    <!-- About & Skills Layout Segment Section -->
+
+    <section id="about" class="reveal">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">About Me</h2>
+
+            <p class="section-subtitle">My professional philosophy centers around architecting intelligent systems, robust full-stack applications, and seamless user experiences.</p>
+
+        </div>
+
+        <div class="about-content">
+
+            <div class="about-text">
+
+                <p>Hello! I am Elham Seid Abdu, an AI and Full-Stack Software Engineer dedicated to bridging advanced machine learning pipelines with high-performance web architecture.</p>
+
+                <br>
+
+                <p>I specialize in building intelligent applications through LLM orchestration, RAG systems, and autonomous agent workflows, backed by scalable backend infrastructure and responsive front-end design.</p>
+
+            </div>
+
+            <div class="skills-pane">
+
+                <div class="skills-category">
+
+                    <h4>AI & Machine Learning</h4>
+
+                    <div class="skills-tags">
+
+                        <span class="tag">Python</span>
+
+                        <span class="tag">LangChain</span>
+
+                        <span class="tag">OpenAI APIs</span>
+
+                        <span class="tag">PyTorch / Vector DBs</span>
+
+                    </div>
+
+                </div>
+
+                <div class="skills-category">
+
+                    <h4>Full-Stack Core</h4>
+
+                    <div class="skills-tags">
+
+                        <span class="tag">React / Next.js</span>
+
+                        <span class="tag">TypeScript</span>
+
+                        <span class="tag">Node.js</span>
+
+                        <span class="tag">PostgreSQL / Supabase</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Interactive Live AI Playground / Prompt Simulator Section -->
+
+    <section id="ai-playground" style="opacity: 1; transform: none; padding: 100px 8%;">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Interactive AI Playground</h2>
+
+            <p class="section-subtitle">Test my RAG orchestration and autonomous agent telemetry live through this simulated neural inference console.</p>
+
+        </div>
+
+
+
+        <style>
+
+            .playground-wrapper {
+
+                max-width: 1200px;
+
+                margin: 0 auto;
+
+                width: 100%;
+
+                display: grid;
+
+                grid-template-columns: 320px 1fr;
+
+                gap: 30px;
+
+                background: rgba(255, 255, 255, 0.01);
+
+                border: 1px solid var(--glass-border);
+
+                border-radius: 24px;
+
+                backdrop-filter: blur(20px);
+
+                overflow: hidden;
+
+            }
+
+            @media (max-width: 968px) {
+
+                .playground-wrapper { grid-template-columns: 1fr; }
+
+            }
+
+            .playground-sidebar {
+
+                padding: 30px;
+
+                border-right: 1px solid var(--glass-border);
+
+                background: rgba(0, 0, 0, 0.2);
+
+                display: flex;
+
+                flex-direction: column;
+
+                gap: 20px;
+
+            }
+
+            @media (max-width: 968px) {
+
+                .playground-sidebar { border-right: none; border-bottom: 1px solid var(--glass-border); padding: 20px; }
+
+            }
+
+            .prompt-preset-btn {
+
+                background: rgba(255, 255, 255, 0.03);
+
+                border: 1px solid var(--glass-border);
+
+                padding: 12px 16px;
+
+                border-radius: 12px;
+
+                color: var(--text-light);
+
+                text-align: left;
+
+                font-size: 0.85rem;
+
+                cursor: pointer;
+
+                transition: all 0.3s ease;
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 10px;
+
+            }
+
+            .prompt-preset-btn:hover {
+
+                background: rgba(66, 133, 244, 0.1);
+
+                border-color: rgba(66, 133, 244, 0.4);
+
+                transform: translateX(4px);
+
+            }
+
+            .playground-chat-area {
+
+                padding: 30px;
+
+                display: flex;
+
+                flex-direction: column;
+
+                height: 480px;
+
+                position: relative;
+
+            }
+
+            @media (max-width: 768px) {
+
+                .playground-chat-area { padding: 20px; height: 400px; }
+
+            }
+
+            .chat-messages-box {
+
+                flex: 1;
+
+                overflow-y: auto;
+
+                display: flex;
+
+                flex-direction: column;
+
+                gap: 16px;
+
+                padding-right: 10px;
+
+                margin-bottom: 20px;
+
+            }
+
+            .chat-bubble {
+
+                max-width: 80%;
+
+                padding: 16px 20px;
+
+                border-radius: 16px;
+
+                font-size: 0.92rem;
+
+                line-height: 1.5;
+
+                animation: fadeInBubble 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+            }
+
+            @keyframes fadeInBubble {
+
+                from { opacity: 0; transform: translateY(10px); }
+
+                to { opacity: 1; transform: translateY(0); }
+
+            }
+
+            .chat-bubble.user {
+
+                background: linear-gradient(135deg, #4285f4, #9b51e0);
+
+                color: #fff;
+
+                align-self: flex-end;
+
+                border-bottom-right-radius: 4px;
+
+            }
+
+            .chat-bubble.ai {
+
+                background: rgba(255, 255, 255, 0.04);
+
+                border: 1px solid var(--glass-border);
+
+                color: var(--text-light);
+
+                align-self: flex-start;
+
+                border-bottom-left-radius: 4px;
+
+            }
+
+            .chat-input-row {
+
+                display: flex;
+
+                gap: 12px;
+
+                background: rgba(255, 255, 255, 0.03);
+
+                border: 1px solid var(--glass-border);
+
+                padding: 8px 8px 8px 18px;
+
+                border-radius: 100px;
+
+                align-items: center;
+
+            }
+
+            .chat-input-row input {
+
+                flex: 1;
+
+                background: transparent;
+
+                border: none;
+
+                color: var(--text-light);
+
+                font-size: 0.95rem;
+
+                outline: none;
+
+            }
+
+            .chat-send-btn {
+
+                background: #4285f4;
+
+                color: #fff;
+
+                border: none;
+
+                width: 42px;
+
+                height: 42px;
+
+                border-radius: 50%;
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                cursor: pointer;
+
+                transition: transform 0.2s ease, background 0.2s ease;
+
+            }
+
+            .chat-send-btn:hover {
+
+                background: #5b95f5;
+
+                transform: scale(1.05);
+
+            }
+
+            .telemetry-meta {
+
+                display: flex;
+
+                gap: 16px;
+
+                font-family: 'JetBrains Mono', monospace;
+
+                font-size: 0.75rem;
+
+                color: var(--text-muted);
+
+                margin-top: 8px;
+
+                flex-wrap: wrap;
+
+            }
+
+        </style>
+
+
+
+        <div class="playground-wrapper">
+
+            <div class="playground-sidebar">
+
+                <div>
+
+                    <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 6px;"><i class="fa-solid fa-terminal" style="color: #4285f4; margin-right: 8px;"></i> Inference Presets</h4>
+
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Select a test query to simulate RAG pipeline evaluation.</p>
+
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                    <button class="prompt-preset-btn" onclick="triggerPreset('stack')">
+
+                        <i class="fa-solid fa-brain" style="color: #4285f4;"></i> What is Elham's core AI stack?
+
+                    </button>
+
+                    <button class="prompt-preset-btn" onclick="triggerPreset('rag')">
+
+                        <i class="fa-solid fa-network-wired" style="color: #9b51e0;"></i> Explain the Enterprise RAG pipeline
+
+                    </button>
+
+                    <button class="prompt-preset-btn" onclick="triggerPreset('agent')">
+
+                        <i class="fa-solid fa-robot" style="color: #e84393;"></i> How do autonomous agent workflows run?
+
+                    </button>
+
+                    <button class="prompt-preset-btn" onclick="triggerPreset('hire')">
+
+                        <i class="fa-solid fa-bolt" style="color: #27c93f;"></i> Why hire Elham as an AI Engineer?
+
+                    </button>
+
+                </div>
+
+                <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--glass-border);">
+
+                    <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted);">
+
+                        <span>MODEL: GPT-4o / vLLM</span>
+
+                        <span style="color: #27c93f;">● ONLINE</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="playground-chat-area">
+
+                <div class="chat-messages-box" id="chat-stream">
+
+                    <div class="chat-bubble ai">
+
+                        Greetings! I am Elham's simulated neural assistant. Select a preset query on the left or type your own question below to inspect live RAG retrieval & model telemetry.
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="telemetry-meta">
+
+                    <span id="telemetry-tokens">Tokens/sec: 48.2</span>
+
+                    <span id="telemetry-latency">Inference Latency: 124ms</span>
+
+                    <span id="telemetry-guardrail">Guardrail Status: 100% Secure</span>
+
+                </div>
+
+
+
+                <div class="chat-input-row" style="margin-top: 12px;">
+
+                    <input type="text" id="user-input" placeholder="Ask about AI architecture, RAG pipelines, or full-stack scale..." onkeypress="handleKeyPress(event)">
+
+                    <button class="chat-send-btn" onclick="sendUserMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Interactive Playground Script -->
+
+    <script>
+
+        const knowledgeBase = {
+
+            stack: "Elham specializes in Python, LangChain, PyTorch, Vector Databases (Pinecone/Supabase), OpenAI APIs, alongside a robust full-stack core in TypeScript, React, Next.js, and Node.js.",
+
+            rag: "The Enterprise RAG architecture combines hybrid semantic search with dense vector embeddings and automated hallucination evaluation guardrails, ensuring 99.4% factual precision.",
+
+            agent: "Autonomous agent workflows feature multi-agent task decomposition, dynamic tool execution, and self-correction loops managed via FastAPI and Docker microservices.",
+
+            hire: "Elham bridges rigorous machine learning engineering with high-performance web architecture, bringing $120K+ in client project impact and 2 years of dedicated technical evolution."
+
+        };
+
+
+
+        function appendBubble(text, sender) {
+
+            const box = document.getElementById('chat-stream');
+
+            const bubble = document.createElement('div');
+
+            bubble.className = `chat-bubble ${sender}`;
+
+            bubble.innerText = text;
+
+            box.appendChild(bubble);
+
+            box.scrollTop = box.scrollHeight;
+
+        }
+
+
+
+        function simulateAIResponse(answerText) {
+
+            setTimeout(() => {
+
+                appendBubble(answerText, 'ai');
+
+                document.getElementById('telemetry-tokens').innerText = `Tokens/sec: ${(42 + Math.random() * 12).toFixed(1)}`;
+
+                document.getElementById('telemetry-latency').innerText = `Inference Latency: ${Math.floor(110 + Math.random() * 35)}ms`;
+
+            }, 500);
+
+        }
+
+
+
+        function triggerPreset(key) {
+
+            let prompt = "";
+
+            let response = "";
+
+            if (key === 'stack') {
+
+                prompt = "What is Elham's core AI stack?";
+
+                response = knowledgeBase.stack;
+
+            } else if (key === 'rag') {
+
+                prompt = "Explain the Enterprise RAG pipeline";
+
+                response = knowledgeBase.rag;
+
+            } else if (key === 'agent') {
+
+                prompt = "How do autonomous agent workflows run?";
+
+                response = knowledgeBase.agent;
+
+            } else if (key === 'hire') {
+
+                prompt = "Why hire Elham as an AI Engineer?";
+
+                response = knowledgeBase.hire;
+
+            }
+
+
+
+            appendBubble(prompt, 'user');
+
+            simulateAIResponse(response);
+
+        }
+
+
+
+        function sendUserMessage() {
+
+            const input = document.getElementById('user-input');
+
+            const val = input.value.trim();
+
+            if (!val) return;
+
+
+
+            appendBubble(val, 'user');
+
+            input.value = '';
+
+
+
+            let lower = val.toLowerCase();
+
+            let reply = "That's a fantastic technical inquiry! Elham builds scalable systems blending AI orchestration with robust web architecture. Feel free to explore the project cards above or connect directly via the contact section below.";
+
+            
+
+            if (lower.includes('stack') || lower.includes('python') || lower.includes('skill')) {
+
+                reply = knowledgeBase.stack;
+
+            } else if (lower.includes('rag') || lower.includes('search') || lower.includes('vector')) {
+
+                reply = knowledgeBase.rag;
+
+            } else if (lower.includes('agent') || lower.includes('workflow') || lower.includes('autonomous')) {
+
+                reply = knowledgeBase.agent;
+
+            } else if (lower.includes('hire') || lower.includes('project') || lower.includes('experience')) {
+
+                reply = knowledgeBase.hire;
+
+            }
+
+
+
+            simulateAIResponse(reply);
+
+        }
+
+
+
+        function handleKeyPress(e) {
+
+            if (e.key === 'Enter') {
+
+                sendUserMessage();
+
+            }
+
+        }
+
+    </script>
+
+
+
+    <!-- Interactive Neural Constellation & Skill Galaxy Map Section -->
+
+    <section id="neural-galaxy" style="padding: 100px 8%; position: relative;">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 2;">
+
+            <h2 class="section-title">Neural Skill Constellation</h2>
+
+            <p class="section-subtitle">An interactive physics-driven particle matrix mapping the intersection of full-stack systems and artificial intelligence.</p>
+
+        </div>
+
+
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%; height: 500px; position: relative; background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 24px; backdrop-filter: blur(20px); overflow: hidden; z-index: 2;" id="galaxy-stage">
+
+            <div style="position: absolute; top: 20px; left: 30px; z-index: 5; pointer-events: none; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--text-muted);">
+
+                [NODE_STATUS]: ACTIVE_CLUSTER<br>
+
+                [INTERACTION]: HOVER_OR_DRAG_NODES
+
+            </div>
+
+            <canvas id="galaxy-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+
+            <div id="nodes-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Constellation Physics & Interaction Engine -->
+
+    <script>
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const stage = document.getElementById('galaxy-stage');
+
+            const canvas = document.getElementById('galaxy-canvas');
+
+            if (!stage || !canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
+            const nodesContainer = document.getElementById('nodes-container');
+
+
+
+            let gWidth = stage.clientWidth || 1000;
+
+            let gHeight = stage.clientHeight || 500;
+
+
+
+            canvas.width = gWidth;
+
+            canvas.height = gHeight;
+
+
+
+            window.addEventListener('resize', () => {
+
+                if (!stage) return;
+
+                gWidth = stage.clientWidth || 1000;
+
+                gHeight = stage.clientHeight || 500;
+
+                canvas.width = gWidth;
+
+                canvas.height = gHeight;
+
+            });
+
+
+
+            const skillNodes = [
+
+                { name: "PyTorch & ML", x: gWidth * 0.2, y: gHeight * 0.3, vx: 0.4, vy: 0.3 },
+
+                { name: "LangChain", x: gWidth * 0.35, y: gHeight * 0.2, vx: -0.3, vy: 0.4 },
+
+                { name: "Vector DBs", x: gWidth * 0.25, y: gHeight * 0.7, vx: 0.3, vy: -0.4 },
+
+                { name: "OpenAI APIs", x: gWidth * 0.15, y: gHeight * 0.5, vx: -0.4, vy: -0.3 },
+
+                { name: "TypeScript", x: gWidth * 0.7, y: gHeight * 0.3, vx: 0.3, vy: 0.4 },
+
+                { name: "React / Next.js", x: gWidth * 0.85, y: gHeight * 0.5, vx: -0.3, vy: -0.3 },
+
+                { name: "Node.js / FastAPI", x: gWidth * 0.6, y: gHeight * 0.7, vx: 0.4, vy: -0.3 },
+
+                { name: "PostgreSQL", x: gWidth * 0.75, y: gHeight * 0.8, vx: -0.4, vy: 0.3 },
+
+                { name: "Docker / Cloud", x: gWidth * 0.5, y: gHeight * 0.45, vx: 0.2, vy: 0.2 }
+
+            ];
+
+
+
+            let domElements = [];
+
+
+
+            function initGalaxyNodes() {
+
+                nodesContainer.innerHTML = '';
+
+                domElements = skillNodes.map((node) => {
+
+                    const el = document.createElement('div');
+
+                    el.style.position = 'absolute';
+
+                    el.style.transform = 'translate(-50%, -50%)';
+
+                    el.style.padding = '10px 18px';
+
+                    el.style.background = 'rgba(8, 7, 16, 0.85)';
+
+                    el.style.border = '1px solid rgba(66, 133, 244, 0.4)';
+
+                    el.style.borderRadius = '100px';
+
+                    el.style.fontFamily = "'JetBrains Mono', monospace";
+
+                    el.style.fontSize = '0.8rem';
+
+                    el.style.color = '#f3f4f6';
+
+                    el.style.cursor = 'pointer';
+
+                    el.style.backdropFilter = 'blur(10px)';
+
+                    el.style.boxShadow = '0 0 20px rgba(66, 133, 244, 0.15)';
+
+                    el.style.transition = 'border-color 0.3s, transform 0.3s, box-shadow 0.3s';
+
+                    el.style.zIndex = '3';
+
+                    el.innerHTML = `<span style="color: #4285f4; margin-right: 6px;">●</span>${node.name}`;
+
+
+
+                    el.addEventListener('mouseenter', () => {
+
+                        el.style.borderColor = '#9b51e0';
+
+                        el.style.transform = 'translate(-50%, -50%) scale(1.15)';
+
+                        el.style.boxShadow = '0 0 30px rgba(155, 81, 224, 0.4)';
+
+                    });
+
+                    el.addEventListener('mouseleave', () => {
+
+                        el.style.borderColor = 'rgba(66, 133, 244, 0.4)';
+
+                        el.style.transform = 'translate(-50%, -50%) scale(1)';
+
+                        el.style.boxShadow = '0 0 20px rgba(66, 133, 244, 0.15)';
+
+                    });
+
+
+
+                    nodesContainer.appendChild(el);
+
+                    return el;
+
+                });
+
+            }
+
+            initGalaxyNodes();
+
+
+
+            let mouseGalaxy = { x: -1000, y: -1000, active: false };
+
+            stage.addEventListener('mousemove', (e) => {
+
+                const rect = stage.getBoundingClientRect();
+
+                mouseGalaxy.x = e.clientX - rect.left;
+
+                mouseGalaxy.y = e.clientY - rect.top;
+
+                mouseGalaxy.active = true;
+
+            });
+
+            stage.addEventListener('mouseleave', () => {
+
+                mouseGalaxy.active = false;
+
+                mouseGalaxy.x = -1000;
+
+                mouseGalaxy.y = -1000;
+
+            });
+
+
+
+            function animateGalaxy() {
+
+                ctx.clearRect(0, 0, gWidth, gHeight);
+
+
+
+                skillNodes.forEach((node, i) => {
+
+                    node.x += node.vx;
+
+                    node.y += node.vy;
+
+
+
+                    if (node.x < 60 || node.x > gWidth - 60) node.vx *= -1;
+
+                    if (node.y < 40 || node.y > gHeight - 40) node.vy *= -1;
+
+
+
+                    if (mouseGalaxy.active) {
+
+                        let dx = mouseGalaxy.x - node.x;
+
+                        let dy = mouseGalaxy.y - node.y;
+
+                        let dist = Math.hypot(dx, dy);
+
+                        if (dist < 140) {
+
+                            node.x -= (dx / dist) * 1.5;
+
+                            node.y -= (dy / dist) * 1.5;
+
+                        }
+
+                    }
+
+
+
+                    if (domElements[i]) {
+
+                        domElements[i].style.left = `${node.x}px`;
+
+                        domElements[i].style.top = `${node.y}px`;
+
+                    }
+
+                });
+
+
+
+                ctx.lineWidth = 1;
+
+                for (let i = 0; i < skillNodes.length; i++) {
+
+                    for (let j = i + 1; j < skillNodes.length; j++) {
+
+                        let n1 = skillNodes[i];
+
+                        let n2 = skillNodes[j];
+
+                        let dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
+
+
+
+                        if (dist < 220) {
+
+                            let alpha = (1 - dist / 220) * 0.35;
+
+                            ctx.strokeStyle = `rgba(66, 133, 244, ${alpha})`;
+
+                            ctx.beginPath();
+
+                            ctx.moveTo(n1.x, n1.y);
+
+                            ctx.lineTo(n2.x, n2.y);
+
+                            ctx.stroke();
+
+                        }
+
+                    }
+
+
+
+                    if (mouseGalaxy.active) {
+
+                        let n = skillNodes[i];
+
+                        let mDist = Math.hypot(n.x - mouseGalaxy.x, n.y - mouseGalaxy.y);
+
+                        if (mDist < 180) {
+
+                            let mAlpha = (1 - mDist / 180) * 0.5;
+
+                            ctx.strokeStyle = `rgba(155, 81, 224, ${mAlpha})`;
+
+                            ctx.beginPath();
+
+                            ctx.moveTo(n.x, n.y);
+
+                            ctx.lineTo(mouseGalaxy.x, mouseGalaxy.y);
+
+                            ctx.stroke();
+
+                        }
+
+                    }
+
+                }
+
+
+
+                requestAnimationFrame(animateGalaxy);
+
+            }
+
+            animateGalaxy();
+
+        });
+
+    </script>
+
+           
+<!-- Quantum AI Core Interactive Section -->
+    <section id="quantum-core" class="reveal" style="padding: 100px 8%; min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center;">
+        
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 2; text-align: center; margin-bottom: 40px;">
+            <h2 class="section-title">Quantum Neural Core</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">Interactive WebGL visualization of the AI cognitive engine. Hover and drag to manipulate the neural weights.</p>
+        </div>
+
+        <div id="quantum-wrapper">
+            <canvas id="quantum-canvas"></canvas>
+            
+            <!-- HUD Overlay -->
+            <div class="quantum-hud top-left">
+                <i class="fa-solid fa-satellite-dish"></i> LIVE_FEED // TENSOR_NODE
+            </div>
+            <div class="quantum-hud bottom-left">
+                <div class="sync-indicator">
+                    <span class="sync-dot"></span>
+                    ENGINE_SYNC: <span id="q-sync-rate">99.8%</span>
+                </div>
+                <div>PARAMS: 1.2T NEURAL_WEIGHTS</div>
+                <div style="color: var(--text-muted); margin-top: 4px;">LATENCY: 12ms</div>
+            </div>
+            <div class="quantum-hud bottom-right">
+                <button class="quantum-btn" onclick="scrambleCore()">
+                    <i class="fa-solid fa-bolt"></i> INJECT NOISE
+                </button>
+            </div>
+        </div>
+
+        <style>
+            #quantum-wrapper {
+                position: relative;
+                width: 100%;
+                max-width: 1200px;
+                height: 600px;
+                margin: 0 auto;
+                border-radius: 24px;
+                border: 1px solid var(--glass-border);
+                background: rgba(8, 7, 16, 0.6);
+                backdrop-filter: blur(20px);
+                overflow: hidden;
+                box-shadow: 0 0 40px rgba(66, 133, 244, 0.05);
+                transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                cursor: grab;
+            }
+            #quantum-wrapper:active {
+                cursor: grabbing;
+            }
+            #quantum-wrapper:hover {
+                border-color: rgba(66, 133, 244, 0.4);
+                box-shadow: 0 0 80px rgba(155, 81, 224, 0.15);
+            }
+            #quantum-canvas {
+                width: 100%;
+                height: 100%;
+                outline: none;
+                pointer-events: none;
+            }
+            .quantum-hud {
+                position: absolute;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.8rem;
+                color: #a1c4fd;
+                pointer-events: none;
+                z-index: 10;
+            }
+            .quantum-hud.top-left { top: 30px; left: 30px; font-weight: 700; color: #fff; }
+            .quantum-hud.bottom-left { bottom: 30px; left: 30px; }
+            .quantum-hud.bottom-right { bottom: 30px; right: 30px; pointer-events: auto; }
+            
+            .sync-indicator {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+                color: #27c93f;
+            }
+            .sync-dot {
+                width: 8px;
+                height: 8px;
+                background: #27c93f;
+                border-radius: 50%;
+                box-shadow: 0 0 10px #27c93f;
+                animation: pulseDot 2s infinite;
+            }
+            .quantum-btn {
+                background: rgba(155, 81, 224, 0.15);
+                border: 1px solid rgba(155, 81, 224, 0.4);
+                color: #fff;
+                padding: 10px 16px;
+                border-radius: 8px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.75rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .quantum-btn:hover {
+                background: rgba(155, 81, 224, 0.4);
+                box-shadow: 0 0 20px rgba(155, 81, 224, 0.4);
+                transform: translateY(-2px);
+            }
+            @media (max-width: 768px) {
+                #quantum-wrapper { height: 450px; }
+            }
+        </style>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const qWrapper = document.getElementById('quantum-wrapper');
+                const qCanvas = document.getElementById('quantum-canvas');
+                if (!qWrapper || !qCanvas || typeof THREE === 'undefined') return;
+
+                const renderer = new THREE.WebGLRenderer({ canvas: qCanvas, alpha: true, antialias: true });
+                renderer.setSize(qWrapper.clientWidth, qWrapper.clientHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(45, qWrapper.clientWidth / qWrapper.clientHeight, 0.1, 1000);
+                camera.position.z = 35;
+
+                // Inner Core (Icosahedron)
+                const coreGeo = new THREE.IcosahedronGeometry(7, 2);
+                const coreMat = new THREE.MeshBasicMaterial({
+                    color: 0x9b51e0,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.6
+                });
+                const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+                scene.add(coreMesh);
+
+                // Outer Neural Shell (Particles)
+                const partCount = 2000;
+                const partGeo = new THREE.BufferGeometry();
+                const posArray = new Float32Array(partCount * 3);
+                
+                for(let i = 0; i < partCount; i++) {
+                    const r = 11 + Math.random() * 4;
+                    const theta = Math.random() * 2 * Math.PI;
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    posArray[i*3] = r * Math.sin(phi) * Math.cos(theta);
+                    posArray[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+                    posArray[i*3+2] = r * Math.cos(phi);
+                }
+                
+                partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const partMat = new THREE.PointsMaterial({
+                    size: 0.15,
+                    color: 0x4285f4,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending
+                });
+                const partMesh = new THREE.Points(partGeo, partMat);
+                scene.add(partMesh);
+
+                // Mouse Interaction Variables
+                let mouseX = 0;
+                let mouseY = 0;
+                let targetX = 0;
+                let targetY = 0;
+                let isDragging = false;
+                
+                const halfX = qWrapper.clientWidth / 2;
+                const halfY = qWrapper.clientHeight / 2;
+
+                qWrapper.addEventListener('mousedown', () => isDragging = true);
+                window.addEventListener('mouseup', () => isDragging = false);
+                
+                qWrapper.addEventListener('mousemove', (event) => {
+                    const rect = qWrapper.getBoundingClientRect();
+                    mouseX = (event.clientX - rect.left - halfX);
+                    mouseY = (event.clientY - rect.top - halfY);
+                });
+
+                qWrapper.addEventListener('mouseleave', () => {
+                    mouseX = 0;
+                    mouseY = 0;
+                    isDragging = false;
+                });
+
+                // Scramble Effect
+                let glitchMultiplier = 1;
+                window.scrambleCore = function() {
+                    glitchMultiplier = 15;
+                    coreMat.color.setHex(0xff3838);
+                    partMat.color.setHex(0x27c93f);
+                    document.getElementById('q-sync-rate').innerText = "CALCULATING...";
+                    document.getElementById('q-sync-rate').style.color = "#ffbd2e";
+                    
+                    setTimeout(() => {
+                        glitchMultiplier = 1;
+                        coreMat.color.setHex(0x9b51e0);
+                        partMat.color.setHex(0x4285f4);
+                        document.getElementById('q-sync-rate').innerText = "99.8%";
+                        document.getElementById('q-sync-rate').style.color = "#27c93f";
+                    }, 800);
+                };
+
+                const clock = new THREE.Clock();
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    const delta = clock.getDelta();
+                    const time = clock.getElapsedTime();
+
+                    targetX = mouseX * 0.002;
+                    targetY = mouseY * 0.002;
+
+                    // Base rotation
+                    coreMesh.rotation.y += 0.2 * delta * glitchMultiplier;
+                    coreMesh.rotation.x += 0.1 * delta * glitchMultiplier;
+                    
+                    partMesh.rotation.y = -time * 0.1;
+                    partMesh.rotation.z = time * 0.05;
+
+                    // Interactive magnetic rotation
+                    if (isDragging) {
+                        coreMesh.rotation.y += 0.05 * (targetX - coreMesh.rotation.y);
+                        coreMesh.rotation.x += 0.05 * (targetY - coreMesh.rotation.x);
+                        partMesh.rotation.y += 0.05 * (targetX - partMesh.rotation.y);
+                        partMesh.rotation.x += 0.05 * (targetY - partMesh.rotation.x);
+                        
+                        // Scale pulse on drag
+                        coreMesh.scale.lerp(new THREE.Vector3(1.1, 1.1, 1.1), 0.1);
+                        partMesh.scale.lerp(new THREE.Vector3(1.05, 1.05, 1.05), 0.1);
+                    } else {
+                        coreMesh.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+                        partMesh.scale.lerp(new THREE.Vector3(1, 1, 1), 0.05);
+                    }
+
+                    // Breathing effect for core
+                    const pulse = Math.sin(time * 2) * 0.05 + 1;
+                    if(!isDragging) coreMesh.scale.set(pulse, pulse, pulse);
+
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                window.addEventListener('resize', () => {
+                    if(!qWrapper) return;
+                    camera.aspect = qWrapper.clientWidth / qWrapper.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(qWrapper.clientWidth, qWrapper.clientHeight);
+                });
+            });
+        </script>
+    </section>
+         
+
+    <!-- Holodeck & Diagnostics Section -->
+
+    <section id="holodeck-diagnostics" class="reveal" style="padding: 100px 8%; position: relative;">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Neural Holodeck & Diagnostics</h2>
+
+            <p class="section-subtitle">Real-time telemetry and cluster diagnostics console. Execute live system benchmarks across your active deployment nodes.</p>
+
+        </div>
+
+
+
+        <div class="holodeck-wrapper" style="max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 360px; gap: 30px; background: rgba(255, 255, 255, 0.01); border: 1px solid var(--glass-border); border-radius: 24px; backdrop-filter: blur(20px); padding: 35px; position: relative; overflow: hidden;">
+
+            <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(66,133,244,0.15) 1px, transparent 1px); background-size: 30px 30px; opacity: 0.3; pointer-events: none;"></div>
+
+
+
+            <div style="display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2;">
+
+                <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); padding: 16px 24px; border-radius: 16px;">
+
+                    <div style="display: flex; align-items: center; gap: 14px;">
+
+                        <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(66,133,244,0.1); border: 1px solid #4285f4; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+
+                            <div style="position: absolute; width: 100%; height: 2px; background: #4285f4; animation: radarSweep 2s linear infinite; transform-origin: center;"></div>
+
+                            <span style="width: 6px; height: 6px; background: #4285f4; border-radius: 50%;"></span>
+
+                        </div>
+
+                        <div>
+
+                            <h4 style="font-size: 0.95rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; color: #fff;">CLUSTER_RADAR // ACTIVE_SCAN</h4>
+
+                            <span style="font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">Target Nodes: 9 / 9 Operational</span>
+
+                        </div>
+
+                    </div>
+
+                    <div id="holodeck-status-badge" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; padding: 4px 12px; background: rgba(39,201,63,0.1); border: 1px solid rgba(39,201,63,0.3); color: #27c93f; border-radius: 100px;">
+
+                        SYSTEM_STABLE
+
+                    </div>
+
+                </div>
+
+
+
+                <div style="background: rgba(8, 7, 16, 0.9); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #a1c4fd; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;" id="holodeck-terminal">
+
+                    <div><span style="color: #27c93f;">[root@elham-core ~]#</span> initializing neural holodeck v4.8...</div>
+
+                    <div><span style="color: #27c93f;">[root@elham-core ~]#</span> loading vector database indices [Pinecone & Supabase]...</div>
+
+                    <div><span style="color: #27c93f;">[root@elham-core ~]#</span> ready for diagnostic execution. Select a protocol on the right.</div>
+
+                </div>
+
+            </div>
+
+
+
+            <div style="display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 2; border-left: 1px solid var(--glass-border); padding-left: 30px;" id="holodeck-controls-pane">
+
+                <div>
+
+                    <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace;"><i class="fa-solid fa-microchip" style="color: #4285f4; margin-right: 8px;"></i> Diagnostic Protocols</h4>
+
+                    <p style="font-size: 0.78rem; color: var(--text-muted);">Click to run live cluster stress tests & telemetry checks.</p>
+
+                </div>
+
+
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+
+                    <button class="holo-action-btn" onclick="runHolodeckDiagnostic('latency')">
+
+                        <i class="fa-solid fa-gauge-high" style="color: #4285f4;"></i> Run Latency Benchmark
+
+                    </button>
+
+                    <button class="holo-action-btn" onclick="runHolodeckDiagnostic('vectordb')">
+
+                        <i class="fa-solid fa-database" style="color: #9b51e0;"></i> Verify Vector DB Cluster
+
+                    </button>
+
+                    <button class="holo-action-btn" onclick="runHolodeckDiagnostic('weights')">
+
+                        <i class="fa-solid fa-brain" style="color: #e84393;"></i> Inspect Neural Weights
+
+                    </button>
+
+                    <button class="holo-action-btn" onclick="runHolodeckDiagnostic('throughput')">
+
+                        <i class="fa-solid fa-bolt" style="color: #27c93f;"></i> Analyze API Throughput
+
+                    </button>
+
+                </div>
+
+
+
+                <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--glass-border); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+
+                    <span>SECURE_SOCKET: TLS 1.3</span>
+
+                    <span style="color: #4285f4;">ENCRYPTED</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <style>
+
+            @keyframes radarSweep {
+
+                from { transform: rotate(0deg); }
+
+                to { transform: rotate(360deg); }
+
+            }
+
+            .holo-action-btn {
+
+                background: rgba(255, 255, 255, 0.03);
+
+                border: 1px solid var(--glass-border);
+
+                padding: 14px 18px;
+
+                border-radius: 12px;
+
+                color: var(--text-light);
+
+                text-align: left;
+
+                font-size: 0.85rem;
+
+                font-family: 'JetBrains Mono', monospace;
+
+                cursor: pointer;
+
+                transition: all 0.3s ease;
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 12px;
+
+            }
+
+            .holo-action-btn:hover {
+
+                background: rgba(66, 133, 244, 0.12);
+
+                border-color: rgba(66, 133, 244, 0.5);
+
+                transform: translateX(4px);
+
+            }
+
+            @media (max-width: 968px) {
+
+                .holodeck-wrapper { grid-template-columns: 1fr !important; padding: 20px !important; }
+
+                #holodeck-controls-pane { border-left: none !important; border-top: 1px solid var(--glass-border); padding-left: 0 !important; padding-top: 25px; }
+
+            }
+
+        </style>
+
+    </section>
+
+
+
+    <!-- Holodeck Script -->
+
+    <script>
+
+        const diagnosticLogs = {
+
+            latency: [
+
+                "Initiating ping sequence across edge nodes...",
+
+                "Region: us-east (Virginia) -> Latency: 32ms [OPTIMAL]",
+
+                "Region: ca-central (Toronto) -> Latency: 14ms [EXCELLENT]",
+
+                "Region: eu-west (Frankfurt) -> Latency: 88ms [STABLE]",
+
+                "[SUCCESS]: Average global inference roundtrip verified at 44.6ms."
+
+            ],
+
+            vectordb: [
+
+                "Querying Pinecone & Supabase vector namespaces...",
+
+                "Checking index dimensions [1536-d text-embedding-3-small]...",
+
+                "Cosine similarity threshold set to 0.84...",
+
+                "[SUCCESS]: 142,500 document embeddings synced with zero retrieval drift."
+
+            ],
+
+            weights: [
+
+                "Inspecting parameter-efficient fine-tuning layers (LoRA)...",
+
+                "Base Model: Llama-3-70B / Mistral-7B custom instruction checkpoints...",
+
+                "Quantization: 4-bit NF4 activation memory footprint...",
+
+                "[SUCCESS]: Zero gradient explosion detected. Model weights validated."
+
+            ],
+
+            throughput: [
+
+                "Spawning concurrent virtual request threads (n=500)...",
+
+                "FastAPI async event loop handling load efficiently...",
+
+                "Token streaming velocity: 52.4 tokens/second per client...",
+
+                "[SUCCESS]: 0% packet loss under maximum stress load test."
+
+            ]
+
+        };
+
+
+
+        function runHolodeckDiagnostic(type) {
+
+            const terminal = document.getElementById('holodeck-terminal');
+
+            const statusBadge = document.getElementById('holodeck-status-badge');
+
+            
+
+            if (!terminal) return;
+
+
+
+            statusBadge.innerText = "EXECUTING...";
+
+            statusBadge.style.color = "#ffbd2e";
+
+            statusBadge.style.borderColor = "rgba(255,189,46,0.3)";
+
+            statusBadge.style.background = "rgba(255,189,46,0.1)";
+
+
+
+            const cmdLine = document.createElement('div');
+
+            cmdLine.innerHTML = `<span style="color: #27c93f;">[root@elham-core ~]#</span> execute_diagnostic --protocol=${type}`;
+
+            terminal.appendChild(cmdLine);
+
+
+
+            const logs = diagnosticLogs[type];
+
+            let delay = 300;
+
+
+
+            logs.forEach((log, index) => {
+
+                setTimeout(() => {
+
+                    const logLine = document.createElement('div');
+
+                    logLine.style.opacity = '0';
+
+                    logLine.style.transition = 'opacity 0.3s ease';
+
+                    
+
+                    if (log.includes("[SUCCESS]")) {
+
+                        logLine.innerHTML = `<span style="color: #27c93f; font-weight: 700;">${log}</span>`;
+
+                    } else {
+
+                        logLine.innerText = `> ${log}`;
+
+                    }
+
+
+
+                    terminal.appendChild(logLine);
+
+                    setTimeout(() => logLine.style.opacity = '1', 50);
+
+                    terminal.scrollTop = terminal.scrollHeight;
+
+
+
+                    if (index === logs.length - 1) {
+
+                        statusBadge.innerText = "SYSTEM_STABLE";
+
+                        statusBadge.style.color = "#27c93f";
+
+                        statusBadge.style.borderColor = "rgba(39,201,63,0.3)";
+
+                        statusBadge.style.background = "rgba(39,201,63,0.1)";
+
+                    }
+
+                }, delay);
+
+                delay += 400;
+
+            });
+
+        }
+
+    </script>
+
+
+
+    <!-- Contact Navigation Grid Section -->
+
+    <section id="contact" class="reveal">
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Let's Connect</h2>
+
+            <p class="section-subtitle">Available for new team projects, professional consulting slots, or open technical collaborations.</p>
+
+        </div>
+
+       
+
+        <div style="max-width: 1200px; margin: 0 auto; width: 100%;">
+
+            <h2 class="section-title">Get In Touch</h2>
+
+            <p class="section-subtitle">Connect with me across platforms or reach out directly.</p>
+
+        </div>
+
+        <div class="contact-grid">
+
+            <a href="mailto:elham.seidabdu@gmail.com" class="contact-btn">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <div class="contact-info">
+
+                    <h4>Email</h4>
+
+                    <p>send a message directly</p>
+
+                </div>
+
+            </a>
+
+            <a href="https://linkedin.com" target="_blank" class="contact-btn">
+
+                <i class="fa-brands fa-linkedin"></i>
+
+                <div class="contact-info">
+
+                    <h4>LinkedIn</h4>
+
+                    <p>professional network</p>
+
+                </div>
+
+            </a>
+
+            <a href="https://github.com" target="_blank" class="contact-btn">
+
+                <i class="fa-brands fa-github"></i>
+
+                <div class="contact-info">
+
+                    <h4>GitHub</h4>
+
+                    <p>review my source repositories</p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Background Logic & Fluid Reveal Scripts Interlocking -->
+
+    <script>
+
+        const canvas = document.getElementById('bg-canvas');
+
+        const ctx = canvas.getContext('2d');
+
+
+
+        let width = canvas.width = window.innerWidth;
+
+        let height = canvas.height = window.innerHeight;
+
+
+
+        window.addEventListener('resize', () => {
+
+            width = canvas.width = window.innerWidth;
+
+            height = canvas.height = window.innerHeight;
+
+            initColumns();
+
+        });
+
+
+
+        const chars = "0101010101XYZ{}[]<>/\\+-*=&#_const async function return import class AI RAG API Python TS React 0123456789ABCDEF";
+
+        const fontSize = 14;
+
+        let columns = [];
+
+
+
+        function initColumns() {
+
+            const colCount = Math.floor(width / 22);
+
+            columns = [];
+
+            for (let i = 0; i < colCount; i++) {
+
+                columns.push({
+
+                    x: i * 22,
+
+                    y: Math.random() * height - height,
+
+                    speed: 1.5 + Math.random() * 2.5,
+
+                    length: 10 + Math.floor(Math.random() * 20),
+
+                    chars: []
+
+                });
+
+            }
+
+        }
+
+        initColumns();
+
+
+
+        let mouse = { x: width / 2, y: height / 2, targetX: width / 2, targetY: height / 2 };
+
+        
+
+        window.addEventListener('mousemove', (e) => {
+
+            mouse.targetX = e.clientX;
+
+            mouse.targetY = e.clientY;
+
+        });
+
+
+
+        function animateBg() {
+
+            ctx.fillStyle = 'rgba(8, 7, 16, 0.15)';
+
+            ctx.fillRect(0, 0, width, height);
+
+
+
+            mouse.x += (mouse.targetX - mouse.x) * 0.05;
+
+            mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+
+
+            ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+
+
+
+            columns.forEach(col => {
+
+                col.y += col.speed;
+
+
+
+                if (col.y > height + (col.length * fontSize)) {
+
+                    col.y = - (col.length * fontSize);
+
+                    col.speed = 1.5 + Math.random() * 2.5;
+
+                }
+
+
+
+                for (let j = 0; j < col.length; j++) {
+
+                    const charY = col.y - (j * fontSize);
+
+                    if (charY < -fontSize || charY > height + fontSize) continue;
+
+
+
+                    const randomChar = chars[Math.floor(Math.random() * chars.length)];
+
+                    
+
+                    if (j === 0) {
+
+                        ctx.fillStyle = 'rgba(243, 244, 246, 0.9)';
+
+                    } else if (j < 4) {
+
+                        ctx.fillStyle = 'rgba(66, 133, 244, 0.7)';
+
+                    } else {
+
+                        ctx.fillStyle = `rgba(155, 81, 224, ${Math.max(0.05, 0.4 - (j * 0.02))})`;
+
+                    }
+
+
+
+                    let drawX = col.x;
+
+                    let dx = mouse.x - drawX;
+
+                    let dy = mouse.y - charY;
+
+                    let dist = Math.hypot(dx, dy);
+
+                    if (dist < 120) {
+
+                        drawX -= (dx / dist) * 10;
+
+                    }
+
+
+
+                    ctx.fillText(randomChar, drawX, charY);
+
+                }
+
+            });
+
+
+
+            requestAnimationFrame(animateBg);
+
+        }
+
+        animateBg();
+
+
+
+        const reveals = document.querySelectorAll('.reveal');
+
+        const sections = document.querySelectorAll('section');
+
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+
+
+        const revealObserver = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('active');
+
+                }
+
+            });
+
+        }, { threshold: 0.15 });
+
+
+
+        reveals.forEach(r => revealObserver.observe(r));
+
+
+
+        window.addEventListener('scroll', () => {
+
+            let current = '';
+
+            sections.forEach(sec => {
+
+                const top = sec.offsetTop - 160;
+
+                if (window.scrollY >= top) {
+
+                    current = sec.getAttribute('id');
+
+                }
+
+            });
+
+            navLinks.forEach(link => {
+
+                link.classList.remove('active');
+
+                if (link.getAttribute('href').includes(current)) {
+
+                    link.classList.add('active');
+
+                }
+
+            });
+
+        });
+
+
+
+        /* Hamburger Menu Toggle */
+
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+
+        const navMenu = document.getElementById('nav-menu');
+
+
+
+        if (hamburgerBtn && navMenu) {
+
+            hamburgerBtn.addEventListener('click', () => {
+
+                navMenu.classList.toggle('nav-active');
+
+            });
+
+
+
+            navMenu.querySelectorAll('a').forEach(link => {
+
+                link.addEventListener('click', () => {
+
+                    navMenu.classList.remove('nav-active');
+
+                });
+
+            });
+
+        }
+
+    </script>
+
+
+
+    <!-- CINEMATIC AI HUD & SCROLL-VELOCITY GLITCH OVERLAY -->
+
+    <div id="cinematic-hud" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; box-shadow: inset 0 0 60px rgba(66,133,244,0.08);">
+
+        <div style="position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(8, 7, 16, 0.85); border: 1px solid rgba(66, 133, 244, 0.3); padding: 4px 16px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #4285f4; backdrop-filter: blur(8px); display: flex; align-items: center; gap: 8px; z-index: 1000;">
+
+            <span style="width: 6px; height: 6px; background: #27c93f; border-radius: 50%; box-shadow: 0 0 8px #27c93f; animation: pulseDot 2s infinite;"></span>
+
+            <span>ELHAM_SEID_ABDU // NEURAL_OS_ACTIVE</span>
+
+        </div>
+
+
+
+        <div style="position: absolute; top: 20px; left: 20px; width: 20px; height: 20px; border-top: 2px solid rgba(66,133,244,0.4); border-left: 2px solid rgba(66,133,244,0.4);"></div>
+
+        <div style="position: absolute; top: 20px; right: 20px; width: 20px; height: 20px; border-top: 2px solid rgba(66,133,244,0.4); border-right: 2px solid rgba(66,133,244,0.4);"></div>
+
+        <div style="position: absolute; bottom: 20px; left: 20px; width: 20px; height: 20px; border-bottom: 2px solid rgba(66,133,244,0.4); border-left: 2px solid rgba(66,133,244,0.4);"></div>
+
+        <div style="position: absolute; bottom: 20px; right: 20px; width: 20px; height: 20px; border-bottom: 2px solid rgba(66,133,244,0.4); border-right: 2px solid rgba(66,133,244,0.4);"></div>
+
+    </div>
+
+
+
+    <div id="scroll-glitch-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; background: linear-gradient(rgba(155,81,224,0.05), rgba(66,133,244,0.05)); opacity: 0; transition: opacity 0.15s ease;"></div>
+
+
+
+    <style>
+
+        @keyframes pulseDot {
+
+            0%, 100% { opacity: 1; transform: scale(1); }
+
+            50% { opacity: 0.4; transform: scale(0.8); }
+
+        }
+
+        .glitching {
+
+            filter: hue-rotate(15deg) contrast(1.1);
+
+            transform: skewX(0.5deg);
+
+        }
+
+    </style>
+
+
+
+    <script>
+
+        let lastScrollTop = 0;
+
+        const glitchOverlay = document.getElementById('scroll-glitch-overlay');
+
+        const bodyElement = document.body;
+
+
+
+        window.addEventListener('scroll', () => {
+
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+
+            let scrollVelocity = Math.abs(st - lastScrollTop);
+
+
+
+            if (scrollVelocity > 25) {
+
+                glitchOverlay.style.opacity = '1';
+
+                bodyElement.classList.add('glitching');
+
+                
+
+                setTimeout(() => {
+
+                    glitchOverlay.style.opacity = '0';
+
+                    bodyElement.classList.remove('glitching');
+
+                }, 120);
+
+            }
+
+            lastScrollTop = st <= 0 ? 0 : st;
+
+        }, { passive: true });
+
+    </script>
+
+
+
+    <!-- ============================================================
+
+     INTERACTIVE DEVELOPER CLI COMMAND PALETTE (Cmd+K / Ctrl+K)
+
+     ============================================================ -->
+
+
+
+<!-- Floating Trigger Button for Mobile & Desktop -->
+
+<button id="cli-trigger-btn" onclick="toggleCliPalette()" aria-label="Open Command Palette" style="position: fixed; bottom: 30px; right: 30px; z-index: 9998; background: rgba(8, 7, 16, 0.85); border: 1px solid rgba(66, 133, 244, 0.4); color: #f3f4f6; padding: 12px 18px; border-radius: 100px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; cursor: pointer; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;">
+
+    <i class="fa-solid fa-terminal" style="color: #4285f4;"></i>
+
+    <span>Cmd + K / CLI</span>
+
+</button>
+
+
+
+<!-- CLI Modal Overlay -->
+
+<div id="cli-modal" style="position: fixed; inset: 0; background: rgba(8, 7, 16, 0.8); backdrop-filter: blur(16px); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.25s ease;">
+
+    
+
+    <!-- CLI Window Box -->
+
+    <div style="width: 100%; max-width: 640px; background: rgba(12, 11, 22, 0.95); border: 1px solid rgba(66, 133, 244, 0.4); border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.7); overflow: hidden; display: flex; flex-direction: column; font-family: 'JetBrains Mono', monospace;">
+
+        
+
+        <!-- CLI Header Bar -->
+
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);">
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+
+                <i class="fa-solid fa-code" style="color: #4285f4;"></i>
+
+                <span style="font-size: 0.85rem; font-weight: 700; color: #fff; letter-spacing: 0.5px;">ELHAM_OS // COMMAND_PALETTE</span>
+
+            </div>
+
+            <button onclick="toggleCliPalette()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;"><i class="fa-solid fa-xmark"></i></button>
+
+        </div>
+
+
+
+        <!-- CLI Input Row -->
+
+        <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); gap: 12px;">
+
+            <i class="fa-solid fa-chevron-right" style="color: #4285f4; font-size: 0.85rem;"></i>
+
+            <input type="text" id="cli-input" placeholder="Type a command (e.g. 'skills', 'projects', 'hire', 'clear')..." style="flex: 1; background: transparent; border: none; color: #f3f4f6; font-size: 0.95rem; font-family: 'JetBrains Mono', monospace; outline: none;" onkeypress="handleCliInput(event)">
+
+            <span style="font-size: 0.7rem; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">ESC to close</span>
+
+        </div>
+
+
+
+        <!-- CLI Output Screen -->
+
+        <div id="cli-output" style="padding: 20px; height: 260px; overflow-y: auto; font-size: 0.82rem; color: #a1c4fd; display: flex; flex-direction: column; gap: 10px; background: rgba(0,0,0,0.4);">
+
+            <div><span style="color: #27c93f;">[system]:</span> Welcome to Elham's interactive developer terminal. Type <span style="color: #fff; background: rgba(66,133,244,0.2); padding: 2px 6px; border-radius: 4px;">help</span> to see available commands.</div>
+
+        </div>
+
+
+
+        <!-- CLI Footer Suggestion Pills -->
+
+        <div style="padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.01); display: flex; gap: 8px; flex-wrap: wrap;">
+
+            <button class="cli-pill" onclick="executeCommand('skills')">skills</button>
+
+            <button class="cli-pill" onclick="executeCommand('projects')">projects</button>
+
+            <button class="cli-pill" onclick="executeCommand('evolution')">evolution</button>
+
+            <button class="cli-pill" onclick="executeCommand('contact')">contact</button>
+
+            <button class="cli-pill" onclick="executeCommand('clear')">clear</button>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+    .cli-pill {
+
+        background: rgba(255, 255, 255, 0.04);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        padding: 4px 10px;
+
+        border-radius: 6px;
+
+        color: var(--text-muted);
+
+        font-family: 'JetBrains Mono', monospace;
+
+        font-size: 0.75rem;
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+
+    }
+
+    .cli-pill:hover {
+
+        background: rgba(66, 133, 244, 0.15);
+
+        color: #fff;
+
+        border-color: rgba(66, 133, 244, 0.4);
+
+    }
+
+    #cli-trigger-btn:hover {
+
+        border-color: #4285f4;
+
+        box-shadow: 0 0 20px rgba(66, 133, 244, 0.3);
+
+        transform: translateY(-2px);
+
+    }
+
+</style>
+
+
+
+<!-- CLI Command Palette Engine Script -->
+
+<script>
+
+    const cliModal = document.getElementById('cli-modal');
+
+    const cliInput = document.getElementById('cli-input');
+
+    const cliOutput = document.getElementById('cli-output');
+
+
+
+    function toggleCliPalette() {
+
+        if (!cliModal) return;
+
+        const isOpen = cliModal.style.display === 'flex';
+
+        if (isOpen) {
+
+            cliModal.style.opacity = '0';
+
+            setTimeout(() => cliModal.style.display = 'none', 250);
+
+        } else {
+
+            cliModal.style.display = 'flex';
+
+            setTimeout(() => {
+
+                cliModal.style.opacity = '1';
+
+                if (cliInput) cliInput.focus();
+
+            }, 10);
+
+        }
+
+    }
+
+
+
+    window.addEventListener('keydown', (e) => {
+
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+
+            e.preventDefault();
+
+            toggleCliPalette();
+
+        }
+
+        if (e.key === 'Escape' && cliModal && cliModal.style.display === 'flex') {
+
+            toggleCliPalette();
+
+        }
+
+    });
+
+
+
+    function appendCliLog(htmlContent, isUser = false) {
+
+        if (!cliOutput) return;
+
+        const line = document.createElement('div');
+
+        if (isUser) {
+
+            line.innerHTML = `<span style="color: #4285f4;">$&gt;</span> ${htmlContent}`;
+
+        } else {
+
+            line.innerHTML = htmlContent;
+
+        }
+
+        cliOutput.appendChild(line);
+
+        cliOutput.scrollTop = cliOutput.scrollHeight;
+
+    }
+
+
+
+    function executeCommand(cmd) {
+
+        const query = cmd.trim().toLowerCase();
+
+        appendCliLog(query, true);
+
+
+
+        setTimeout(() => {
+
+            switch (query) {
+
+                case 'help':
+
+                    appendCliLog(`<span style="color: #fff;">Available Commands:</span><br>
+
+                    - <b style="color: #4285f4;">skills</b> : Inspect AI & Full-Stack technical stack<br>
+
+                    - <b style="color: #4285f4;">projects</b> : Jump to selected works & RAG pipelines<br>
+
+                    - <b style="color: #4285f4;">evolution</b> : View 2-year growth telemetry<br>
+
+                    - <b style="color: #4285f4;">contact</b> : Open direct communication channels<br>
+
+                    - <b style="color: #4285f4;">hire</b> : Read value proposition summary<br>
+
+                    - <b style="color: #4285f4;">clear</b> : Reset terminal buffer`);
+
+                    break;
+
+                case 'skills':
+
+                    appendCliLog(`[AI Stack]: Python, LangChain, PyTorch, OpenAI APIs, Vector DBs (Pinecone/Supabase).<br>[Full-Stack]: TypeScript, React, Next.js, Node.js, PostgreSQL.`);
+
+                    break;
+
+                case 'projects':
+
+                    appendCliLog(`Navigating to Projects showcase...`);
+
+                    toggleCliPalette();
+
+                    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+
+                    break;
+
+                case 'evolution':
+
+                    appendCliLog(`Navigating to 2-Year Evolution telemetry...`);
+
+                    toggleCliPalette();
+
+                    document.getElementById('evolution')?.scrollIntoView({ behavior: 'smooth' });
+
+                    break;
+
+                case 'contact':
+
+                    appendCliLog(`Navigating to Contact section...`);
+
+                    toggleCliPalette();
+
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+
+                    break;
+
+                case 'hire':
+
+                    appendCliLog(`<span style="color: #27c93f;">[VALUE_PROP]:</span> Elham bridges robust full-stack architecture with production-grade AI engineering ($120K+ client impact). Ready for elite engineering roles.`);
+
+                    break;
+
+                case 'clear':
+
+                    cliOutput.innerHTML = `<div><span style="color: #27c93f;">[system]:</span> Terminal buffer cleared.</div>`;
+
+                    break;
+
+                default:
+
+                    appendCliLog(`<span style="color: #ff5f56;">[error]:</span> Command not recognized: "${query}". Type <span style="color: #fff;">help</span> for commands.`);
+
+            }
+
+        }, 150);
+
+    }
+
+
+
+    function handleCliInput(e) {
+
+        if (e.key === 'Enter') {
+
+            const val = cliInput.value;
+
+            if (val) {
+
+                executeCommand(val);
+
+                cliInput.value = '';
+
+            }
+
+        }
+
+    }
+
+</script>
+
+
+
+    <!-- ============================================================
+
+     CINEMATIC AI REAL-TIME VOICE ASSISTANT WIDGET & AUDIO AVATAR
+
+     ============================================================ -->
+
+
+
+<!-- Full-Screen Glassmorphic Voice Avatar Modal -->
+
+<div id="voice-modal" style="position: fixed; inset: 0; background: rgba(8, 7, 16, 0.88); backdrop-filter: blur(20px); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;">
+
+    <div style="width: 100%; max-width: 520px; background: rgba(12, 11, 22, 0.95); border: 1px solid rgba(66, 133, 244, 0.4); border-radius: 28px; box-shadow: 0 30px 60px rgba(66, 133, 244, 0.15); overflow: hidden; display: flex; flex-direction: column; font-family: 'JetBrains Mono', monospace; position: relative;">
+
+        
+
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 300px; height: 120px; background: radial-gradient(circle, rgba(66,133,244,0.2) 0%, transparent 70%); pointer-events: none;"></div>
+
+
+
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 2;">
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+
+                <i class="fa-solid fa-waveform" style="color: #4285f4; font-size: 1.1rem;"></i>
+
+                <span style="font-size: 0.85rem; font-weight: 700; color: #fff; letter-spacing: 0.5px;">ELHAM_ASSISTANT // VIRTUAL_CONCIERGE</span>
+
+            </div>
+
+            <button onclick="toggleVoiceModal()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'"><i class="fa-solid fa-xmark"></i></button>
+
+        </div>
+
+
+
+        <div style="padding: 30px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; z-index: 2;">
+
+            <div style="width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, rgba(66,133,244,0.25) 0%, rgba(8,7,16,0.8) 80%); border: 2px solid rgba(66,133,244,0.5); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(66,133,244,0.3); animation: orbPulse 3s infinite ease-in-out;">
+
+                <div id="audio-wave-bars" style="display: flex; align-items: center; gap: 4px; height: 30px;">
+
+                    <span class="v-bar" style="width: 4px; background: #4285f4; border-radius: 2px; animation: waveBar 1.2s infinite ease-in-out;"></span>
+
+                    <span class="v-bar" style="width: 4px; background: #4285f4; border-radius: 2px; animation: waveBar 0.9s infinite ease-in-out 0.2s;"></span>
+
+                    <span class="v-bar" style="width: 4px; background: #4285f4; border-radius: 2px; animation: waveBar 1.5s infinite ease-in-out 0.4s;"></span>
+
+                    <span class="v-bar" style="width: 4px; background: #4285f4; border-radius: 2px; animation: waveBar 0.8s infinite ease-in-out 0.1s;"></span>
+
+                    <span class="v-bar" style="width: 4px; background: #4285f4; border-radius: 2px; animation: waveBar 1.1s infinite ease-in-out 0.3s;"></span>
+
+                </div>
+
+            </div>
+
+
+
+            <div style="text-align: center;">
+
+                <div id="voice-status-label" style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 4px;">AI Assistant Online</div>
+
+                <div style="font-size: 0.75rem; color: var(--text-muted);">Select a briefing below to hear me present Elham's portfolio.</div>
+
+            </div>
+
+
+
+            <div id="voice-transcript" style="width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 16px; font-size: 0.82rem; color: #f3f4f6; line-height: 1.5; min-height: 80px; max-height: 120px; overflow-y: auto; text-align: left;">
+
+                "Hello! I am Elham's AI assistant. I'm here to guide you through her professional background and engineering accomplishments. How can I help you today?"
+
+            </div>
+
+        </div>
+
+
+
+        <div style="padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.01); display: flex; flex-direction: column; gap: 10px; z-index: 2;">
+
+            <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Request AI Briefing:</span>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
+                <button class="voice-preset-btn" onclick="playVoiceSynthesis('intro')"><i class="fa-solid fa-volume-high" style="color: #4285f4;"></i> Professional Bio</button>
+
+                <button class="voice-preset-btn" onclick="playVoiceSynthesis('stack')"><i class="fa-solid fa-brain" style="color: #9b51e0;"></i> AI & RAG Stack</button>
+
+                <button class="voice-preset-btn" onclick="playVoiceSynthesis('impact')"><i class="fa-solid fa-chart-line" style="color: #27c93f;"></i> Project Impact</button>
+
+                <button class="voice-preset-btn" onclick="playVoiceSynthesis('partner')"><i class="fa-solid fa-bolt" style="color: #ff3838;"></i> Ready to be Partnered With</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+    @keyframes orbPulse {
+
+        0%, 100% { box-shadow: 0 0 25px rgba(66,133,244,0.3), inset 0 0 15px rgba(66,133,244,0.2); }
+
+        50% { box-shadow: 0 0 45px rgba(66,133,244,0.5), inset 0 0 25px rgba(66,133,244,0.4); }
+
+    }
+
+    @keyframes waveBar {
+
+        0%, 100% { height: 8px; }
+
+        50% { height: 32px; }
+
+    }
+
+    .voice-preset-btn {
+
+        background: rgba(255, 255, 255, 0.03);
+
+        border: 1px solid var(--glass-border);
+
+        padding: 10px 14px;
+
+        border-radius: 10px;
+
+        color: var(--text-light);
+
+        text-align: left;
+
+        font-size: 0.75rem;
+
+        font-family: 'JetBrains Mono', monospace;
+
+        cursor: pointer;
+
+        transition: all 0.25s ease;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+    }
+
+    .voice-preset-btn:hover {
+
+        background: rgba(66, 133, 244, 0.1);
+
+        border-color: rgba(66, 133, 244, 0.4);
+
+        transform: translateY(-2px);
+
+    }
+
+    #voice-assistant-trigger:hover {
+
+        border-color: #4285f4;
+
+        box-shadow: 0 0 20px rgba(66, 133, 244, 0.3);
+
+        transform: translateY(-2px);
+
+    }
+
+</style>
+
+
+
+<!-- AI Assistant Voice Engine Script (Female Voice Persona) -->
+
+<script>
+
+    const voiceModal = document.getElementById('voice-modal');
+
+    const voiceStatusLabel = document.getElementById('voice-status-label');
+
+    const voiceTranscript = document.getElementById('voice-transcript');
+
+
+
+    function toggleVoiceModal() {
+
+        if (!voiceModal) return;
+
+        const isOpen = voiceModal.style.display === 'flex';
+
+        if (isOpen) {
+
+            voiceModal.style.opacity = '0';
+
+            setTimeout(() => voiceModal.style.display = 'none', 300);
+
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+
+        } else {
+
+            voiceModal.style.display = 'flex';
+
+            setTimeout(() => voiceModal.style.opacity = '1', 10);
+
+        }
+
+    }
+
+
+
+    const voiceTexts = {
+
+        intro: "Hello! I am Elham's virtual assistant. I'm delighted to present her portfolio. Elham is an exceptional AI and Full-Stack Software Engineer based in Toronto, specializing in advanced machine learning pipelines and high-performance web systems.",
+
+        stack: "Let me highlight her technical expertise. Elham's core AI stack features Python, LangChain, PyTorch, OpenAI APIs, and Vector Databases like Pinecone and Supabase, paired with a robust full-stack foundation in TypeScript, React, Next.js, and Node.js.",
+
+        impact: "When it comes to execution, Elham delivers results. Over the past two years, she has engineered enterprise RAG systems and autonomous agent workflows, generating over 120,000 dollars in high-value client project impact with verified 98% velocity.",
+
+        partner: "If you're looking for an elite AI and Full-Stack engineer who can architect robust, intelligent systems from scratch, Elham is ready to make an immediate impact. Feel free to connect with her below!"
+
+    };
+
+
+
+    function playVoiceSynthesis(key) {
+
+        const textToSpeech = voiceTexts[key];
+
+        if (!textToSpeech) return;
+
+
+
+        voiceTranscript.innerText = `"${textToSpeech}"`;
+
+        voiceStatusLabel.innerText = "ASSISTANT SPEAKING...";
+
+        voiceStatusLabel.style.color = "#4285f4";
+
+
+
+        document.querySelectorAll('.v-bar').forEach(bar => {
+
+            bar.style.animationDuration = '0.4s';
+
+        });
+
+
+
+        if ('speechSynthesis' in window) {
+
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeech);
+
+            utterance.rate = 1.03; 
+
+            utterance.pitch = 1.25; // Polished, natural female assistant voice profile
+
+
+
+            const voices = window.speechSynthesis.getVoices();
+
+            const femaleVoice = voices.find(v => 
+
+                (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Zira') || v.name.includes('Karen') || v.name.includes('Serena')) && v.lang.includes('en')
+
+            ) || voices.find(v => v.lang.includes('en'));
+
+
+
+            if (femaleVoice) utterance.voice = femaleVoice;
+
+
+
+            utterance.onend = () => {
+
+                voiceStatusLabel.innerText = "AI Assistant Online. Ready for Next Briefing.";
+
+                voiceStatusLabel.style.color = "#fff";
+
+                document.querySelectorAll('.v-bar').forEach(bar => {
+
+                    bar.style.animationDuration = '1.2s';
+
+                });
+
+            };
+
+
+
+            window.speechSynthesis.speak(utterance);
+
+        } else {
+
+            setTimeout(() => {
+
+                voiceStatusLabel.innerText = "Briefing Complete.";
+
+                voiceStatusLabel.style.color = "#fff";
+
+            }, 3000);
+
+        }
+
+    }
+
+</script>
+
+</body>
+
+</html> 
